@@ -1,12 +1,17 @@
 {
   "name": "markdown-it-adobe-plugin",
   "displayName": "Adobe Experience League Markdown-it Parser Plugin",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Markdown-IT plugin that supports rendering of Adobe Experience League documentation markdown language extensions.  ",
   "main": "index.js",
   "publisher": "adobe",
   "author": "geveritt@appliedrelevance.com",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/oproma/markdown-it-adobe-plugin.git"
+  },
+  "homepage": "https://bitbucket.org/oproma/vscode-adobe-authoring/src/master/packages/markdown-it-adobe-plugin/",
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && nyc mocha --debug-brk",
