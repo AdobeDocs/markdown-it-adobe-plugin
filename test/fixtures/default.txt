@@ -1,0 +1,164 @@
+Some ordinary Markdown that doesn't include any ExL extensions.
+.
+# Here is the title
+.
+<h1>Here is the title</h1>
+.
+
+Standard Blockquote Markup - No Adobe tags
+.
+> Everything you see on the Internet is true -- Abraham Lincoln
+.
+<blockquote>
+<div class="p">Everything you see on the Internet is true -- Abraham Lincoln</div>
+</blockquote>
+.
+
+
+
+Blockquote with Preformatted text - No Adobe tags
+.
+>		foo
+.
+<blockquote>
+<pre><code>  foo
+</code></pre>
+</blockquote>
+.
+
+
+
+Note Markup with blank line
+.
+>[!NOTE]
+>
+>This is note text.
+.
+<div class="alert note" data-label="NOTE">
+<div class="p"></div>
+<div class="p">This is note text.</div>
+</div>
+.
+
+
+
+Note markdown without blank line
+.
+>[!NOTE]
+>This is note text.
+.
+<div class="alert note" data-label="NOTE">
+<div class="p">This is note text.</div>
+</div>
+.
+
+
+
+Tip Markup
+.
+>[!TIP]
+>
+>Here is a one-line tip. 
+.
+<div class="alert tip" data-label="TIP">
+<div class="p"></div>
+<div class="p">Here is a one-line tip.</div>
+</div>
+.
+
+
+
+Important Markup
+.
+>[!IMPORTANT]
+>
+>Here is a one-line important message. 
+.
+<div class="alert important" data-label="IMPORTANT">
+<div class="p"></div>
+<div class="p">Here is a one-line important message.</div>
+</div>
+.
+
+
+
+Warning Markup
+.
+>[!WARNING]
+>
+>Here is a one-line warning. 
+.
+<div class="note warning" data-label="WARNING">
+<div class="p"></div>
+<div class="p">Here is a one-line warning.</div>
+</div>
+.
+
+
+
+Caution Markup
+.
+>[!CAUTION]
+>
+>Here is a one-line caution. 
+.
+<div class="alert caution" data-label="CAUTION">
+<div class="p"></div>
+<div class="p">Here is a one-line caution.</div>
+</div>
+.
+
+
+
+Invalid alert markup label
+.
+>[!ERROR]
+>
+>Here is unsupported alert markup. It should be unlabeled and just output a plain blockquote.
+.
+<blockquote>
+<div class="p">[!ERROR]</div>
+<div class="p">Here is unsupported alert markup. It should be unlabeled and just output a plain blockquote.</div>
+</blockquote>
+.
+
+
+
+Some more complex markup that contains plain and extended blockquotes.
+.
+# Ordinary Blockquote
+Here is an ordinary block quote:
+>
+> To err is human.  
+>
+## Followed by a multi-line tip
+>[!TIP]
+>
+> Make sure that everybody understands that tipping is necessary. Especially
+> in these weird times in which we live. 
+> 
+> -- Rev. Dr. Martin Luther King, JR
+.
+<h1>Ordinary Blockquote</h1>
+<p>Here is an ordinary block quote:</p>
+<blockquote>
+<div class="p">To err is human.</div>
+</blockquote>
+<h2>Followed by a multi-line tip</h2>
+<div class="alert tip" data-label="TIP">
+<div class="p"></div>
+<div class="p">Make sure that everybody understands that tipping is necessary. Especially
+in these weird times in which we live.</div>
+<div class="p">-- Rev. Dr. Martin Luther King, JR</div>
+</div>
+.
+
+
+VIDEO tag 
+.
+> [!VIDEO](https://video.tv.adobe.com/v/17187/)
+.
+<video width="640" height="320" controls>
+<source src="https://video.tv.adobe.com/v/17187/">
+</video>
+.
