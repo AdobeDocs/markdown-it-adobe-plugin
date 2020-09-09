@@ -156,9 +156,27 @@ in these weird times in which we live.</div>
 
 VIDEO tag 
 .
-> [!VIDEO](https://video.tv.adobe.com/v/17187/)
+>[!VIDEO](https://video.tv.adobe.com/v/17187/)
 .
-<video width="640" height="320" controls>
-<source src="https://video.tv.adobe.com/v/17187/">
-</video>
+<div class="extension video">
+<iframe class="p" allowfullscreen="true" embedded-video="true" style="position: absolute; top: 0; left: 0; width: 100%;" src="https://video.tv.adobe.com/v/17187/"></iframe>
+</div>
+.
+
+MORELIKETHIS tag
+.
+>[!MORELIKETHIS]
+>
+>- [Adobe Experience League](https://experienceleague.adobe.com)
+>- [Markdown-It Extension](https://github.com/markdown-it/markdown-it)
+>- [Microsoft Docs Authoring Extension](https://docs.microsoft.com/en-us/contribute/how-to-write-docs-auth-pack)
+.
+<div class="extension morelikethis" data-label="MORELIKETHIS">
+<div class="p"></div>
+<ul>
+<li><a href="https://experienceleague.adobe.com">Adobe Experience League</a></li>
+<li><a href="https://github.com/markdown-it/markdown-it">Markdown-It Extension</a></li>
+<li><a href="https://docs.microsoft.com/en-us/contribute/how-to-write-docs-auth-pack">Microsoft Docs Authoring Extension</a></li>
+</ul>
+</div>
 .

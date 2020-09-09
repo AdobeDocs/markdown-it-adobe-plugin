@@ -102,7 +102,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
             tokens[i].content = '';
             tokens[i + 1].tag = 'iframe';
             // Increment the counter to skip the closing tag we just made.
-            i+=1;
+            i += 1;
           }
         }
       }
