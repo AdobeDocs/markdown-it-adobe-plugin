@@ -34,7 +34,7 @@ Note Markup with blank line
 >
 >This is note text.
 .
-<div class="alert note" data-label="NOTE">
+<div class="extension note" data-label="NOTE">
 <div class="p"></div>
 <div class="p">This is note text.</div>
 </div>
@@ -47,7 +47,7 @@ Note markdown without blank line
 >[!NOTE]
 >This is note text.
 .
-<div class="alert note" data-label="NOTE">
+<div class="extension note" data-label="NOTE">
 <div class="p">This is note text.</div>
 </div>
 .
@@ -60,7 +60,7 @@ Tip Markup
 >
 >Here is a one-line tip. 
 .
-<div class="alert tip" data-label="TIP">
+<div class="extension tip" data-label="TIP">
 <div class="p"></div>
 <div class="p">Here is a one-line tip.</div>
 </div>
@@ -74,7 +74,7 @@ Important Markup
 >
 >Here is a one-line important message. 
 .
-<div class="alert important" data-label="IMPORTANT">
+<div class="extension important" data-label="IMPORTANT">
 <div class="p"></div>
 <div class="p">Here is a one-line important message.</div>
 </div>
@@ -88,7 +88,7 @@ Warning Markup
 >
 >Here is a one-line warning. 
 .
-<div class="note warning" data-label="WARNING">
+<div class="extension warning" data-label="WARNING">
 <div class="p"></div>
 <div class="p">Here is a one-line warning.</div>
 </div>
@@ -102,7 +102,7 @@ Caution Markup
 >
 >Here is a one-line caution. 
 .
-<div class="alert caution" data-label="CAUTION">
+<div class="extension caution" data-label="CAUTION">
 <div class="p"></div>
 <div class="p">Here is a one-line caution.</div>
 </div>
@@ -145,7 +145,7 @@ Here is an ordinary block quote:
 <div class="p">To err is human.</div>
 </blockquote>
 <h2>Followed by a multi-line tip</h2>
-<div class="alert tip" data-label="TIP">
+<div class="extension tip" data-label="TIP">
 <div class="p"></div>
 <div class="p">Make sure that everybody understands that tipping is necessary. Especially
 in these weird times in which we live.</div>

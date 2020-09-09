@@ -57,7 +57,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       // token with the start token.
       if (tokens[i].type === TokenType.BLOCKQUOTE_CLOSE) {
         level -= 1;
-        tokens[i].type = tokens[startBlock].type;
+        // tokens[i].type = tokens[startBlock].type;
         tokens[i].tag = tokens[startBlock].tag; // If this is an ExlTag;
         continue;
       }
@@ -76,7 +76,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       // ordinary block, so stop processing.
       if (tokens[i].type === TokenType.INLINE) {
         let labelMatches = tokens[i].content.match(
-          /\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|MORELIKETHIS)\](\n\s*)*(.*)/
+          /^\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|MORELIKETHIS)\](\n\s*)*(.*)/
         );
         if (labelMatches) {
           tokens[i].content = labelMatches[3]; // Clear the [!NOTE] label text, retaining the message.
@@ -88,7 +88,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
           );
           tokens[startBlock].attrSet('data-label', labelText);
         } else {
-          let videoMatches = tokens[i].content.match(/\[\!VIDEO\]\s*\((.*)\)/);
+          let videoMatches = tokens[i].content.match(/^\[\!VIDEO\]\s*\((.*)\)/);
 
           if (videoMatches) {
             let url = videoMatches[1];
@@ -99,8 +99,10 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
             tokens[i - 1].attrSet('embedded-video', true);
             tokens[i - 1].attrSet('style', 'position: absolute; top: 0; left: 0; width: 100%;');
             tokens[i - 1].attrSet('src', url);
-            tokens[i + 1].tag = 'iframe';
             tokens[i].content = '';
+            tokens[i + 1].tag = 'iframe';
+            // Increment the counter to skip the closing tag we just made.
+            i+=1;
           }
         }
       }
