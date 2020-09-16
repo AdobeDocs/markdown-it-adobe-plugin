@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-adobe-plugin",
   "displayName": "Adobe Experience League Markdown-it Parser Plugin",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Markdown-IT plugin that supports rendering of Adobe Experience League documentation markdown language extensions.  ",
   "main": "index.js",
   "publisher": "adobe",
