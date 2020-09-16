@@ -1,4 +1,3 @@
-/* eslint-disable array-bracket-spacing */
 'use strict';
 
 module.exports = function exl_block_plugin(md /*, name, options*/) {
@@ -14,6 +13,31 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     PARAGRAPH_CLOSE: 'paragraph_close',
     INLINE: 'inline',
   };
+
+  /**
+   * DNL (Do Not Localize) transformation rule. Simply strips the [!DNL <text>] markdown
+   * and leaves the <text> part.
+   * @param {} state
+   */
+
+  function transformDNL(state) {
+    let tokens = state.tokens;
+
+    for (var i = 0, l = tokens.length; i < l; i++) {
+      if (tokens[i].type !== TokenType.INLINE) {
+        continue;
+      } else {
+        const dnlRegex = /\[\!DNL\s+([^\]]+)\]/;
+        let dnlMatches = tokens[i].content.match(dnlRegex);
+        if (dnlMatches) {
+          tokens[i].content = tokens[i].content.replace(
+            dnlRegex,
+            dnlMatches[1]
+          );
+        }
+      }
+    }
+  }
 
   /**
    * Alert Transformation Rule
@@ -97,7 +121,10 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
             tokens[i - 1].tag = 'iframe';
             tokens[i - 1].attrSet('allowfullscreen', true);
             tokens[i - 1].attrSet('embedded-video', true);
-            tokens[i - 1].attrSet('style', 'position: absolute; top: 0; left: 0; width: 100%;');
+            tokens[i - 1].attrSet(
+              'style',
+              'position: absolute; top: 0; left: 0; width: 100%;'
+            );
             tokens[i - 1].attrSet('src', url);
             tokens[i].content = '';
             tokens[i + 1].tag = 'iframe';
@@ -108,6 +135,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       }
     }
   }
-  // Install the rule processor
+  // Install the rule processors
+  md.core.ruler.after('block', 'dnl', transformDNL);
   md.core.ruler.after('block', 'alert', transformAlerts);
 };

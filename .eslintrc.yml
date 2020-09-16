@@ -3,6 +3,8 @@ env:
   browser: false
   es6: true
 
+extends: 'prettier'
+
 rules:
   accessor-pairs: 2
   array-bracket-spacing:

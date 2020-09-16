@@ -180,3 +180,17 @@ MORELIKETHIS tag
 </ul>
 </div>
 .
+
+DNL tag in paragraph
+.
+Here is just a plain paragraph with [!DNL Unlocalized] text in it. 
+.
+<p>Here is just a plain paragraph with Unlocalized text in it.</p>
+.
+
+DNL tag in header
+.
+# [!DNL Do Not Localize] the preceding string
+.
+<h1>Do Not Localize the preceding string</h1>
+.
