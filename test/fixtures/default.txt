@@ -14,8 +14,6 @@ Standard Blockquote Markup - No Adobe tags
 </blockquote>
 .
 
-
-
 Blockquote with Preformatted text - No Adobe tags
 .
 >		foo
@@ -193,4 +191,18 @@ DNL tag in header
 # [!DNL Do Not Localize] the preceding string
 .
 <h1>Do Not Localize the preceding string</h1>
+.
+
+UICONTROL tag in paragraph
+.
+Here is just a plain paragraph with [!UICONTROL localized] text in it. 
+.
+<p>Here is just a plain paragraph with localized text in it.</p>
+.
+
+UICONTROL tag in header
+.
+# [!UICONTROL Should be localized] the preceding string
+.
+<h1>Should be localized the preceding string</h1>
 .

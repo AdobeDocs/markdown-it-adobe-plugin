@@ -40,6 +40,31 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
   }
 
   /**
+   * DNL (Do Not Localize) transformation rule. Simply strips the [!DNL <text>] markdown
+   * and leaves the <text> part.
+   * @param {} state
+   */
+
+  function transformUICONTROL(state) {
+    let tokens = state.tokens;
+
+    for (var i = 0, l = tokens.length; i < l; i++) {
+      if (tokens[i].type !== TokenType.INLINE) {
+        continue;
+      } else {
+        const dnlRegex = /\[\!UICONTROL\s+([^\]]+)\]/;
+        let dnlMatches = tokens[i].content.match(dnlRegex);
+        if (dnlMatches) {
+          tokens[i].content = tokens[i].content.replace(
+            dnlRegex,
+            dnlMatches[1]
+          );
+        }
+      }
+    }
+  }
+
+  /**
    * Alert Transformation Rule
    *
    * Alert Markup
@@ -137,5 +162,6 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
   }
   // Install the rule processors
   md.core.ruler.after('block', 'dnl', transformDNL);
+  md.core.ruler.after('block', 'uicontrol', transformUICONTROL);
   md.core.ruler.after('block', 'alert', transformAlerts);
 };
