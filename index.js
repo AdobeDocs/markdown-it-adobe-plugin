@@ -129,7 +129,10 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
         );
         if (labelMatches) {
           tokens[i].content = labelMatches[3]; // Clear the [!NOTE] label text, retaining the message.
-          let labelText = labelMatches[1];
+          let labelText =
+            labelMatches[1] === 'MORELIKETHIS'
+              ? 'Related Articles'
+              : labelMatches[1];
           tokens[startBlock].tag = 'div';
           tokens[startBlock].attrSet(
             'class',
