@@ -43,20 +43,18 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
    */
 
   function transformUICONTROL(state) {
-    let tokens = state.tokens;
+    let inlineTokens = state.tokens.filter(
+      (tok) => tok.type === TokenType.INLINE
+    );
 
-    for (var i = 0, l = tokens.length; i < l; i++) {
-      if (tokens[i].type !== TokenType.INLINE) {
-        continue;
-      } else {
-        const dnlRegex = /\[\!UICONTROL\s+([^\]]+)\]/;
-        let dnlMatches = tokens[i].content.match(dnlRegex);
-        if (dnlMatches) {
-          tokens[i].content = tokens[i].content.replace(
-            dnlRegex,
-            dnlMatches[1]
-          );
-        }
+    for (var i = 0, l = inlineTokens.length; i < l; i++) {
+      const dnlRegex = /\[\!UICONTROL\s+([^\]]+)\]/;
+      let dnlMatches = inlineTokens[i].content.match(dnlRegex);
+      if (dnlMatches) {
+        inlineTokens[i].content = inlineTokens[i].content.replace(
+          dnlRegex,
+          dnlMatches[1]
+        );
       }
     }
   }
@@ -131,10 +129,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
               ? 'Related Articles'
               : labelMatches[1];
           tokens[startBlock].tag = 'div';
-          tokens[startBlock].attrSet(
-            'class',
-            `extension ${labelText.toLowerCase()}`
-          );
+          tokens[startBlock].attrSet('class', 'extension morelikethis');
           tokens[startBlock].attrSet('data-label', labelText);
         } else {
           let videoMatches = tokens[i].content.match(/^\[\!VIDEO\]\s*\((.*)\)/);
@@ -143,16 +138,15 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
             let url = videoMatches[1];
             tokens[startBlock].tag = 'div';
             tokens[startBlock].attrSet('class', 'extension video');
-            tokens[i - 1].tag = 'iframe';
+            tokens[i - 1].tag = 'video';
             tokens[i - 1].attrSet('allowfullscreen', true);
-            tokens[i - 1].attrSet('embedded-video', true);
-            tokens[i - 1].attrSet(
-              'style',
-              'position: absolute; top: 0; left: 0; width: 100%;'
-            );
+            tokens[i - 1].attrSet('controls', true);
+            tokens[i - 1].attrSet('height', 250);
+            tokens[i - 1].attrSet('poster', '/assets/img/video_slug.png');
+            tokens[i - 1].attrSet('crossorigin', 'anonymous');
             tokens[i - 1].attrSet('src', url);
             tokens[i].content = '';
-            tokens[i + 1].tag = 'iframe';
+            tokens[i + 1].tag = 'video';
             // Increment the counter to skip the closing tag we just made.
             i += 1;
           }
