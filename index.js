@@ -21,20 +21,17 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
    */
 
   function transformDNL(state) {
-    let tokens = state.tokens;
-
-    for (var i = 0, l = tokens.length; i < l; i++) {
-      if (tokens[i].type !== TokenType.INLINE) {
-        continue;
-      } else {
-        const dnlRegex = /\[\!DNL\s+([^\]]+)\]/;
-        let dnlMatches = tokens[i].content.match(dnlRegex);
-        if (dnlMatches) {
-          tokens[i].content = tokens[i].content.replace(
-            dnlRegex,
-            dnlMatches[1]
-          );
-        }
+    let inlineTokens = state.tokens.filter(
+      (tok) => tok.type === TokenType.INLINE
+    );
+    for (var i = 0, l = inlineTokens.length; i < l; i++) {
+      const dnlRegex = /\[\!DNL\s+([^\]]+)\]/;
+      let dnlMatches = inlineTokens[i].content.match(dnlRegex);
+      if (dnlMatches) {
+        inlineTokens[i].content = inlineTokens[i].content.replace(
+          dnlRegex,
+          dnlMatches[1]
+        );
       }
     }
   }
