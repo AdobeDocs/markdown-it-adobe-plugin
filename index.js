@@ -127,9 +127,9 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
           let labelText =
             labelMatches[1] === 'MORELIKETHIS'
               ? 'Related Articles'
-              : labelMatches[1];
+              : labelMatches[1] || 'alert';
           tokens[startBlock].tag = 'div';
-          tokens[startBlock].attrSet('class', 'extension morelikethis');
+          tokens[startBlock].attrSet('class', labelMatches[1].toLowerCase());
           tokens[startBlock].attrSet('data-label', labelText);
         } else {
           let videoMatches = tokens[i].content.match(/^\[\!VIDEO\]\s*\((.*)\)/);
