@@ -129,7 +129,10 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
               ? 'Related Articles'
               : labelMatches[1] || 'alert';
           tokens[startBlock].tag = 'div';
-          tokens[startBlock].attrSet('class', labelMatches[1].toLowerCase());
+          tokens[startBlock].attrSet(
+            'class',
+            `extension ${labelMatches[1].toLowerCase()}`
+          );
           tokens[startBlock].attrSet('data-label', labelText);
         } else {
           let videoMatches = tokens[i].content.match(/^\[\!VIDEO\]\s*\((.*)\)/);
