@@ -12,6 +12,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     PARAGRAPH_OPEN: 'paragraph_open',
     PARAGRAPH_CLOSE: 'paragraph_close',
     INLINE: 'inline',
+    HEADING_OPEN: 'heading_open',
   };
 
   /**
@@ -55,6 +56,24 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
           dnlRegex,
           dnlMatches[1]
         );
+      }
+    }
+  }
+
+  function transformHeaderAnchors(state) {
+    let headingTokens = state.tokens;
+    const anchorMatch = /{#([^}]+)}/;
+    for (var i = 0, l = headingTokens.length; i < l; i++) {
+      if (headingTokens[i].type === TokenType.HEADING_OPEN) {
+        const headline = headingTokens[i + 1].content;
+        if (headline) {
+          const ids = headline.match(anchorMatch);
+          if (ids[1]) {
+            headingTokens[i].attrSet('id', ids[1]);
+            headingTokens[i + 1].content = headline.substr(0, ids.index);
+          }
+        }
+        // console.log(`heading content is ${headingTokens[i].content}`, ids);
       }
     }
   }
@@ -120,7 +139,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       // ordinary block, so stop processing.
       if (tokens[i].type === TokenType.INLINE) {
         let labelMatches = tokens[i].content.match(
-          /^\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|MORELIKETHIS)\](\n\s*)*(.*)/
+          /^\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|ADMIN|AVAILABILITY|PREREQUISITES|MORELIKETHIS)\](\n\s*)*(.*)/
         );
         if (labelMatches) {
           tokens[i].content = labelMatches[3]; // Clear the [!NOTE] label text, retaining the message.
@@ -161,4 +180,5 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
   md.core.ruler.after('block', 'dnl', transformDNL);
   md.core.ruler.after('block', 'uicontrol', transformUICONTROL);
   md.core.ruler.after('block', 'alert', transformAlerts);
+  md.core.ruler.after('block', 'heading-anchors', transformHeaderAnchors);
 };
