@@ -73,7 +73,6 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
             headingTokens[i + 1].content = headline.substr(0, ids.index);
           }
         }
-        // console.log(`heading content is ${headingTokens[i].content}`, ids);
       }
     }
   }
