@@ -68,7 +68,7 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
         const headline = headingTokens[i + 1].content;
         if (headline) {
           const ids = headline.match(anchorMatch);
-          if (ids[1]) {
+          if (ids && ids[1]) {
             headingTokens[i].attrSet('id', ids[1]);
             headingTokens[i + 1].content = headline.substr(0, ids.index);
           }
