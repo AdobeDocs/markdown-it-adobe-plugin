@@ -138,7 +138,8 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       // ordinary block, so stop processing.
       if (tokens[i].type === TokenType.INLINE) {
         let labelMatches = tokens[i].content.match(
-          /^\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|ADMIN|AVAILABILITY|PREREQUISITES|MORELIKETHIS)\](\n\s*)*(.*)/
+          // eslint-disable-next-line max-len
+          /^\[\!(NOTE|CAUTION|IMPORTANT|TIP|WARNING|ADMINISTRATION|AVAILABILITY|PREREQUISITES|ERROR|INFO|SUCCESS|MORELIKETHIS)\](\n\s*)*(.*)/
         );
         if (labelMatches) {
           tokens[i].content = labelMatches[3]; // Clear the [!NOTE] label text, retaining the message.
