@@ -60,6 +60,24 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     }
   }
 
+  function transformLinkTargets(state) {
+    let linkTokens = state.tokens;
+    const targetMatch = /\{\w*target\w*=\w*([^}]*)\}/;
+
+    for (var i = 0, l = linkTokens.length; i < l; i++) {
+      if (linkTokens[i].type === TokenType.INLINE) {
+        const linkLine = linkTokens[i].content;
+        if (linkLine) {
+          const ids = linkLine.match(targetMatch);
+          if (ids && ids[1]) {
+            linkTokens[i].attrSet('target', ids[1]);
+            linkTokens[i].content = linkLine.replace(ids[0], '');
+          }
+        }
+      }
+    }
+  }
+
   function transformHeaderAnchors(state) {
     let headingTokens = state.tokens;
     const anchorMatch = /{#([^}]+)}/;
@@ -181,4 +199,5 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
   md.core.ruler.after('block', 'uicontrol', transformUICONTROL);
   md.core.ruler.after('block', 'alert', transformAlerts);
   md.core.ruler.after('block', 'heading-anchors', transformHeaderAnchors);
+  md.core.ruler.after('block', 'link-target', transformLinkTargets);
 };
