@@ -25,14 +25,15 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     let inlineTokens = state.tokens.filter(
       (tok) => tok.type === TokenType.INLINE
     );
+    const dnlRegex = /\[\!DNL\s+([^\]]+)\]/;
     for (var i = 0, l = inlineTokens.length; i < l; i++) {
-      const dnlRegex = /\[\!DNL\s+([^\]]+)\]/;
-      let dnlMatches = inlineTokens[i].content.match(dnlRegex);
-      if (dnlMatches) {
-        inlineTokens[i].content = inlineTokens[i].content.replace(
-          dnlRegex,
-          dnlMatches[1]
-        );
+      // Check for all instances of dnlRegex and replace with the text
+      // between the brackets.
+      let text = inlineTokens[i].content;
+      let match = dnlRegex.exec(text);
+      while (match) {
+        text = text.replace(match[0], match[1]);
+        match = dnlRegex.exec(text);
       }
     }
   }
@@ -47,15 +48,15 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     let inlineTokens = state.tokens.filter(
       (tok) => tok.type === TokenType.INLINE
     );
-
+    const dnlRegex = /\[\!UICONTROL\s+([^\]]+)\]/;
     for (var i = 0, l = inlineTokens.length; i < l; i++) {
-      const dnlRegex = /\[\!UICONTROL\s+([^\]]+)\]/;
-      let dnlMatches = inlineTokens[i].content.match(dnlRegex);
-      if (dnlMatches) {
-        inlineTokens[i].content = inlineTokens[i].content.replace(
-          dnlRegex,
-          dnlMatches[1]
-        );
+      // Check for all instances of dnlRegex and replace with the text
+      // between the brackets.
+      let text = inlineTokens[i].content;
+      let match = dnlRegex.exec(text);
+      while (match) {
+        text = text.replace(match[0], match[1]);
+        match = dnlRegex.exec(text);
       }
     }
   }
