@@ -13,6 +13,8 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
     PARAGRAPH_CLOSE: 'paragraph_close',
     INLINE: 'inline',
     HEADING_OPEN: 'heading_open',
+    TABLE_OPEN: 'table_open',
+    TABLE_CLOSE: 'table_close',
   };
 
   /**
@@ -195,10 +197,31 @@ module.exports = function exl_block_plugin(md /*, name, options*/) {
       }
     }
   }
+
+  /**
+   * Ignore the {style="table-layout:fixed"} attribute after a table.
+   */
+
+  function ignoreTableStyles(state) {
+    let inlineTokens = state.tokens.filter(
+      (tok) => tok.type === TokenType.INLINE
+    );
+    const styleRegEx = /\{style[^\}]*\}/;
+    for (var i = 0, l = inlineTokens.length; i < l; i++) {
+      // Remove the matching style directive from the token list.
+      let text = inlineTokens[i].content;
+      let match = styleRegEx.exec(text);
+      if (match) {
+        inlineTokens[i].content = text.replace(match[0], '');
+      }
+    }
+  }
+
   // Install the rule processors
   md.core.ruler.after('block', 'dnl', transformDNL);
   md.core.ruler.after('block', 'uicontrol', transformUICONTROL);
   md.core.ruler.after('block', 'alert', transformAlerts);
   md.core.ruler.after('block', 'heading-anchors', transformHeaderAnchors);
   md.core.ruler.after('block', 'link-target', transformLinkTargets);
+  md.core.ruler.after('block', 'table-styles', ignoreTableStyles);
 };

@@ -348,6 +348,13 @@ console.log(result);
 // </div>
 ```
 
+## Debugging in Visual Studio Code
+
+This module is a plug-in for Markdown-It.  To debug it in VS Code, you need to debug the Extension that loads 
+Markdown-It, which in turn loads this module.
+
+See ![Debugging Panel](debugging.png)
+
 ## License
 
 [Apache-2.0](https://bitbucket.org/oproma/markdown-it-adobe-plugin/src/master/LICENSE)
