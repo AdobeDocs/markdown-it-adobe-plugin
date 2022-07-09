@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function exl_block_plugin(md /*, name, options*/) {
+module.exports = function exl_block_plugin(md) {
   /**
    * An enumeration of token types.
    *
