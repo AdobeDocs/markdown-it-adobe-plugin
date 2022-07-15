@@ -1,9 +1,6 @@
 # markdown-it-adobe-plugin
 
-A [markdown-it](https://github.com/markdown-it-markdown-it#readme) plugin to support rendering Adobe Flavored Markdown to HTML. 
-
-
-
+A [markdown-it](https://github.com/markdown-it-markdown-it#readme) plugin to support rendering Adobe Flavored Markdown to HTML.
 
 ## Installation
 
@@ -11,6 +8,22 @@ node.js
 
 ```bash
 $ yarn add markdown-it-adobe-plugin
+yarn add v1.22.17
+info No lockfile found.
+[1/4] 🔍  Resolving packages...
+[2/4] 🚚  Fetching packages...
+[3/4] 🔗  Linking dependencies...
+[4/4] 🔨  Building fresh packages...
+success Saved lockfile.
+warning Your current version of Yarn is out of date. The latest version is "1.22.19", while you're on "1.22.17".
+info To upgrade, run the following command:
+$ curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+success Saved 1 new dependency.
+info Direct dependencies
+└─ markdown-it-adobe-plugin@1.1.2
+info All dependencies
+└─ markdown-it-adobe-plugin@1.1.2
+✨  Done in 1.25s.
 ```
 
 ## Supported Markdown extensions
@@ -109,7 +122,7 @@ renders
 >Here is a one-line important message. 
 ```
 
-renders 
+renders
 
 ```html
 <div class="extension important" data-label="IMPORTANT">
@@ -169,7 +182,7 @@ renders
 </blockquote>
 ```
 
-### Some more complex markup that contains plain and extended blockquotes.
+### Some more complex markup that contains plain and extended blockquotes
 
 ```Markdown
 # Ordinary Blockquote
@@ -203,7 +216,7 @@ in these weird times in which we live.</div>
 </div>
 ```
 
-### VIDEO tag 
+### VIDEO tag
 
 ```Markdown
 >[!VIDEO](https://video.tv.adobe.com/v/17187/)
@@ -295,7 +308,7 @@ var md = require('markdown-it')()
             .use(require('markdown-it-adobe-plugin'));
 ```
 
-The plugin does not require or use any parameters. 
+The plugin does not require or use any parameters.
 
 ## Example
 
@@ -335,9 +348,12 @@ console.log(result);
 // </div>
 ```
 
-## Testing
+## Debugging in Visual Studio Code
 
+This module is a plug-in for Markdown-It.  To debug it in VS Code, you need to debug the Extension that loads 
+Markdown-It, which in turn loads this module.
 
+See ![Debugging Panel](debugging.png)
 
 ## License
 
