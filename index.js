@@ -39,7 +39,7 @@ module.exports = function exl_block_plugin(md, options) {
     snippetHeaderRe: SNIPPET_HEADER_RE,
     includePath: INCLUDE_PATH,
     snippetFile: SNIPPET_FILE,
-    throwError: true,
+    throwError: false,
     bracesAreOptional: false,
     notFoundMessage: "File '{{FILE}}' not found.",
     circularMessage: "Circular reference between '{{FILE}}' and '{{PARENT}}'.",
