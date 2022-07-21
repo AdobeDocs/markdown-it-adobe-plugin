@@ -27,18 +27,18 @@
     "adobe-exl"
   ],
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "2.2.0",
-    "@typescript-eslint/parser": "2.2.0",
-    "browserify": "^16.5.1",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "browserify": "^17.0.0",
     "coveralls": "^3.1.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "markdown-it": "markdown-it/markdown-it",
+    "markdown-it": "^13.0.1",
     "markdown-it-testgen": "~0.1.0",
-    "mocha": "^7.2.0",
+    "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "tape": "^5.0.1",
-    "terser": "^4.7.0"
+    "terser": "^5.14.2"
   }
 }
