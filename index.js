@@ -29,6 +29,7 @@ const SNIPPET_RE = /\{\{(.+)\}\}/i;
 const SNIPPET_HEADER_RE = /##\s+(.*)\{#(.*)\}/i;
 const SNIPPET_FILE = 'help/_includes/snippets.md';
 const INCLUDE_PATH = 'help/_includes';
+const COLLAPSIBLE_RE = /\+\+\+\s+(.*)$/i;
 
 module.exports = function exl_block_plugin(md, options) {
   const defaultOptions = {
@@ -38,6 +39,7 @@ module.exports = function exl_block_plugin(md, options) {
     snippetRe: SNIPPET_RE,
     snippetHeaderRe: SNIPPET_HEADER_RE,
     includePath: INCLUDE_PATH,
+    collapsibleRe: COLLAPSIBLE_RE,
     snippetFile: SNIPPET_FILE,
     throwError: false,
     bracesAreOptional: false,
@@ -417,6 +419,52 @@ module.exports = function exl_block_plugin(md, options) {
     );
   }
 
+  /**
+   * Look for lines that begin with "+++".  These lines delimit a collapsible section of the document. Replace the
+   * "+++" with a <details> opening and a </details> closing tag surrounding the collapible section.  Place the text
+   * after the "+++" in a <summary> tag.
+   * @param {*} state
+   */
+  function transformCollapsible(state) {
+    let tokens = state.tokens;
+    for (let i = 0; i < tokens.length; i++) {
+      let token = tokens[i];
+      if (token.type === 'inline') {
+        let text = token.content;
+        // Find the opening +++ line.
+        if (text.startsWith('+++')) {
+          let collapsibleText = text.substring(3).trim();
+          // insert the opening <details> tag
+          token.content = '<details>';
+          // insert the summary tag
+          tokens.splice(i + 1, 0, {
+            type: 'html_block',
+            content: `<summary>${collapsibleText}</summary>`,
+          });
+          // Find the closing +++ line.
+          i += 2;
+          while (i < tokens.length) {
+            let nextToken = tokens[i];
+            if (nextToken.type === 'inline') {
+              text = nextToken.content;
+              if (text.startsWith('+++')) {
+                // remove the +++ line
+                tokens.splice(i, 1);
+                // insert the closing </details> tag
+                tokens.splice(i, 0, {
+                  type: 'html_block',
+                  content: '</details>',
+                });
+                break;
+              }
+            }
+            i++;
+          }
+        }
+      }
+    }
+  }
+
   // Install the rule processors
   md.core.ruler.before('normalize', 'include', includeFileParts);
   md.core.ruler.after('block', 'dnl', transformDNL);
@@ -425,4 +473,5 @@ module.exports = function exl_block_plugin(md, options) {
   md.core.ruler.after('block', 'heading-anchors', transformHeaderAnchors);
   md.core.ruler.after('block', 'link-target', transformLinkTargets);
   md.core.ruler.after('block', 'table-styles', ignoreTableStyles);
+  md.core.ruler.after('block', 'collapsible', transformCollapsible);
 };
