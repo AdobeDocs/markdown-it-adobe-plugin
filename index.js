@@ -358,7 +358,8 @@ module.exports = function exl_block_plugin(md, options) {
       let snippet = {};
       let snippetName = '';
       snippetLines.forEach((line) => {
-        const match = options.snippetHeaderRe.exec(line);
+        const lineStr = line.toString().trim();
+        const match = options.snippetHeaderRe.exec(lineStr);
         if (match) {
           const text = match[1];
           snippetName = match[2];
@@ -369,15 +370,12 @@ module.exports = function exl_block_plugin(md, options) {
           localSnippets[snippetName] = snippet;
         } else if (snippetName) {
           if (localSnippets[snippetName].content) {
-            localSnippets[snippetName].content += '\n' + line;
+            localSnippets[snippetName].content += '\n' + lineStr;
           } else {
-            localSnippets[snippetName].content = line;
+            localSnippets[snippetName].content = lineStr;
           }
-        } else {
-          console.warn('Ignoring line:', line);
         }
       });
-      console.log('Snippets:', localSnippets);
     }
     return localSnippets;
   }
