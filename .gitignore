@@ -4,3 +4,4 @@ coverage
 node_modules
 Icon
 **/**/Icon
+yarn-error.log
