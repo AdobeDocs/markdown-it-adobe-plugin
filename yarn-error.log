@@ -2,7 +2,7 @@ Arguments:
   /usr/local/Cellar/node@16/16.15.0/bin/node /Users/geordie/.yarn/bin/yarn.js publish
 
 PATH: 
-  /Users/geordie/.jenv/shims:/Users/geordie/.jenv/shims:/usr/local/opt/openjdk/bin:/usr/local/opt/openjdk@8/bin:/usr/local/opt/openjdk@11/bin:/usr/local/opt/node@16/bin:/Users/geordie/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/geordie/opt/anaconda3/bin:/Users/geordie/opt/anaconda3/condabin:/Users/geordie/.sdkman/candidates/java/current/bin:/usr/local/opt/gradle@6/bin:/usr/local/opt/ruby/bin:/Users/geordie/.config/yarn/global/node_modules/.bin
+  /usr/local/opt/gradle@6/bin:/usr/local/opt/ruby/bin:/Users/geordie/.yarn/bin:/Users/geordie/.config/yarn/global/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/geordie/opt/anaconda3/bin:/Users/geordie/opt/anaconda3/condabin:/Users/geordie/.sdkman/candidates/java/current/bin:/usr/local/opt/gradle@6/bin:/usr/local/opt/ruby/bin:/Users/geordie/.yarn/bin:/Users/geordie/.config/yarn/global/node_modules/.bin
 
 Yarn version: 
   1.22.19
@@ -30,7 +30,7 @@ npm manifest:
   {
     "name": "markdown-it-adobe-plugin",
     "displayName": "Adobe Experience League Markdown-it Parser Plugin",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Markdown-IT plugin that supports rendering of Adobe Experience League documentation markdown language extensions.  ",
     "main": "index.js",
     "publisher": "adobe",
