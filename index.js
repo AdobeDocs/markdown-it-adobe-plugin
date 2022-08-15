@@ -432,13 +432,21 @@ module.exports = function exl_block_plugin(md, options) {
         // Find the opening +++ line.
         if (text.startsWith('+++')) {
           let collapsibleText = text.substring(3).trim();
+          let [title, content] = collapsibleText.split('\n');
           // insert the opening <details> tag
           token.content = '<details>';
           // insert the summary tag
           tokens.splice(i + 1, 0, {
             type: 'html_block',
-            content: `<summary>${collapsibleText}</summary>`,
+            content: `<summary>${title}</summary>`,
           });
+          if (content) {
+            // insert the content
+            tokens.splice(i + 2, 0, {
+              type: 'html_block',
+              content: content,
+            });
+          }
           // Find the closing +++ line.
           i += 2;
           while (i < tokens.length) {
