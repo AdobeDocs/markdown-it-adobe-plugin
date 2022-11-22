@@ -1,3 +1,4 @@
+/* eslint-disable array-bracket-spacing */
 /* eslint-disable no-func-assign */
 'use strict';
 
@@ -471,8 +472,74 @@ module.exports = function exl_block_plugin(md, options) {
     }
   }
 
+  /**
+   * Look for lines that begin with the regex "[!BEGINSHADEBOX ".  These lines delimit a shaded box section of the
+   * document.  Replace the "[!BEGINSHADEBOX ..." with a <div class="sp-wrapper"> opening.  Then, look for the
+   * corresponding "[!ENDSHADEBOX]" line and replace it with a </div> closing tag.
+   * The text after the "[!BEGINSHADEBOX " is used as the title of the shaded box.
+   * Note that the actual syntax begins with ">" because it is a blockquote.  We need to look for blockquotes before
+   * we look for the shaded box.
+   * @param {*} state
+   */
+
+  function transformShadebox(state) {
+    let tokens = state.tokens;
+    let shadeboxRe = /\[!BEGINSHADEBOX\s+\"(.*)\"\]/;
+    let endShadeboxRe = /\[!ENDSHADEBOX\]/;
+    for (let i = 0; i < tokens.length; i++) {
+      let token = tokens[i];
+      if (token.type !== 'blockquote_open') {
+        continue;
+      }
+      // We are in a Blockquote. The next token should be a paragraph.
+      let nextToken = tokens[i + 1];
+      if (!nextToken.type === 'paragraph_open') {
+        continue;
+      }
+      // The next token should be an inline token.
+      let nextNextToken = tokens[i + 2];
+      if (nextNextToken.type === 'inline') {
+        let text = nextNextToken.content;
+        // Find the opening line.
+        let match = shadeboxRe.exec(text);
+        if (match) {
+          let shadeboxTitleText = match[1];
+          // Replace the blockquote_open with a <div class="sp-wrapper"> opening.
+          token.content = '<div class="sp-wrapper">';
+          token.type = 'html_block';
+          // Replace the paragraph, inline and paragraph end, with the title HTML div
+          // insert the title
+          tokens.splice(i + 1, 3, {
+            type: 'html_block',
+            content: `<p><strong>${shadeboxTitleText}</strong></p>`,
+          });
+          // Find the closing line.
+          i += 2;
+          while (i < tokens.length) {
+            nextToken = tokens[i];
+            if (nextToken.type === 'inline') {
+              text = nextToken.content;
+              if (endShadeboxRe.exec(text)) {
+                // remove the line
+                tokens.splice(i, 1);
+                // insert the closing </div> tag
+                tokens.splice(i, 0, {
+                  type: 'html_block',
+                  content: '</div>',
+                });
+                break;
+              }
+            }
+            i++;
+          }
+        }  // end if
+      } // end for
+    }
+  }
+
   // Install the rule processors
   md.core.ruler.before('normalize', 'include', includeFileParts);
+  md.core.ruler.after('block', 'shadebox', transformShadebox);
   md.core.ruler.after('block', 'dnl', transformDNL);
   md.core.ruler.after('block', 'uicontrol', transformUICONTROL);
   md.core.ruler.after('block', 'alert', transformAlerts);
