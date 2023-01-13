@@ -2,6 +2,8 @@
 
 A [markdown-it](https://github.com/markdown-it-markdown-it#readme) plugin to support rendering Adobe Flavored Markdown to HTML.
 
+> This module has been deprecated and is no longer maintained. It has been incorporated directly into version 2.x of [Adobe Markdown Authoring Extension](https://github.com/AdobeDocs/adobe-markdown-authoring)
+
 ## Installation
 
 node.js
